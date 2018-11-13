@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#">
+    <fa-icon icon="shopping-cart"></fa-icon> e-changuito
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav mr-auto">
+    </div>
+
+    <span class="ml-auto navbar-text">{{usuario.username}} - ${{usuario.saldo}}</span>
+
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="card productos">
+
+    <div class="card-header">
+      Productos
+    </div>
+
+    <div class="card-body">
+      <div class="row" *ngFor="let producto of productos">
+
+        <div class="col-12 col-sm-12 col-md-2 text-center">
+          <img class="img-fluid img-thumbnail" [src]="producto.urlImagen">
+          <!--Property binding en vez de interpolation-->
+        </div>
+
+        <div class="col-12 col-sm-12 text-md-left col-md-6">
+          <h4 class="product-name"><strong> {{ producto.titulo }}</strong></h4>
+          <h4>
+            <small>{{ producto.descripcion }}</small>
+          </h4>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4 text-md-right row">
+
+          <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+            <h6><strong>{{ producto.precioUnitario }}</strong></h6>
+          </div>
+
+          <div class="col-9 col-sm-9 col-md-6">
+            <div class="row">
+              <button type="button" class="btn btn-outline-success btn-xs" (click)="agregarProducto(producto)">
+                <fa-icon icon="plus"></fa-icon>
+              </button>
+              <span>&nbsp;</span>
+              <button type="button" class="btn btn-outline-danger btn-xs" (click)="quitarProducto(producto)">
+                <fa-icon icon="minus"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <hr>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div *ngIf="saldoInsuficiente" class="row">
+        <div class="col-12 alert alert-danger">
+          <strong>Saldo insuficiente!</strong> Debe cargar más saldo o remover productos.
+        </div>
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col">
+          Total: <b> $ {{ getTotalCarrito() }}</b>
+        </div>
+
+        <div class="col">
+          <button class="btn btn-primary float-right" (click)="finalizarCompra()">Finalizar Compra</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
