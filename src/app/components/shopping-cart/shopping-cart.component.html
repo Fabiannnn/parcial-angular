@@ -10,7 +10,7 @@
     <div class="navbar-nav mr-auto">
     </div>
 
-    <span class="ml-auto navbar-text">{{usuario.username}} - ${{usuario.saldo}}</span>
+    <span class="ml-auto navbar-text" *ngIf="usuario">{{usuario.username}} - ${{usuario.saldo}}</span><!--Porque va a buscar datos antes de que se cargue el Usuario-->
 
   </div>
 </nav>
@@ -75,7 +75,7 @@
       <div class="row">
 
         <div class="col">
-          Total: <b> $ {{ getTotalCarrito() }}</b>
+          Total: <b *ngIf="usuario"> $ {{ getTotalCarrito() }}</b> <!--Porque va a buscar datos antes de que se cargue el Usuario-->
         </div>
 
         <div class="col">

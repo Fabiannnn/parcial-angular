@@ -27,10 +27,17 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getUsuario(): void {
-    this.usuario = this.shoppingCartService.getUsuarioLogueado();
+    //this.usuario = this.shoppingCartService.getUsuarioLogueado();
+    this.shoppingCartService.getUsuario().subscribe(
+      usuario => (this.usuario = usuario)
+      );
   }
+
   getProductos(): void {
-    this.productos = this.shoppingCartService.getProductos();
+    //this.productos = this.shoppingCartService.getProductos();
+    this.shoppingCartService.getProductos().subscribe(
+      productos => (this.productos = productos)
+      );
   }
 
   getTotalCarrito(): number {

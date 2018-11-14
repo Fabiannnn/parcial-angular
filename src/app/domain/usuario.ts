@@ -3,7 +3,7 @@ import { ShoppingCart } from "../domain/shoppingCart";
 export class Usuario{
 
     username: string
-    shoppingCart: ShoppingCart
+    shoppingCart: ShoppingCart;
     saldo: number
     
     constructor(username: string){

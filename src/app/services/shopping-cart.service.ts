@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../domain/usuario';
 import { Producto } from '../domain/producto';
+import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map } from 'rxjs/operators';
 
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
 
-  constructor() { }
+  private productosUrl = "http://shopping-cart.y9fyqbatm4.us-west-2.elasticbeanstalk.com/productos";
+  private usuarioUrl = "http://shopping-cart.y9fyqbatm4.us-west-2.elasticbeanstalk.com/usuarioLogueado";
 
+  constructor(private http: HttpClient) { }
+
+  /*
   getUsuarioLogueado() {
       var jsonUsuario = {
         "username": "jackNapier",
@@ -18,8 +28,8 @@ export class ShoppingCartService {
       }
 
       return Usuario.fromJSON(jsonUsuario)
-  }
-
+  }*/
+  /*
   getProductos() {
       var jsonProductos = [
         {"titulo": "Samsung Galaxy s9", "descripcion": "Galaxy s9", "precioUnitario": 33999, "urlImagen": "assets/images/galaxy-s9.png"},
@@ -30,6 +40,17 @@ export class ShoppingCartService {
       ]
 
       return jsonProductos.map ( prod => {return Producto.fromJSON(prod)})
+  }*/
+
+  getProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(this.productosUrl);
   }
 
+  getUsuario(): Observable<Usuario> {
+    return this.http.get(this.usuarioUrl).pipe(map(this.convertirAUsuario));
+  }
+
+  private convertirAUsuario(res: Response) {
+    return Usuario.fromJSON(res);
+  }
 }
